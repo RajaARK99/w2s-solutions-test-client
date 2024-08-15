@@ -68,7 +68,7 @@ const Component = ({
         defaultValue={defaultValue}
         shouldForceLeadingZeros
         granularity={granularity ?? "day"}
-        shouldCloseOnSelect={false}
+        shouldCloseOnSelect={granularity === "day" ? true : false}
       >
         {({ state }) => {
           return (
@@ -130,32 +130,38 @@ const Component = ({
                     </CalendarGridBody>
                   </CalendarGrid>
                 </Calendar>
-                <TimeField
-                  className={composeRenderProps(className, (className) =>
-                    cn("group flex flex-col gap-2", className)
-                  )}
-                  value={state?.timeValue}
-                  onChange={(e) => state?.setTimeValue(e)}
-                  granularity={
-                    state?.granularity !== "day" ? state?.granularity : "minute"
-                  }
-                  hideTimeZone
-                  shouldForceLeadingZeros
-                  hourCycle={12}
-                  isDisabled={state?.dateValue?.day ? false : true}
-                  name={`calendarTime`}
-                >
-                  <DateInput />
-                </TimeField>
+                {granularity !== "day" && (
+                  <Fragment>
+                    <TimeField
+                      className={composeRenderProps(className, (className) =>
+                        cn("group flex flex-col gap-2", className)
+                      )}
+                      value={state?.timeValue}
+                      onChange={(e) => state?.setTimeValue(e)}
+                      granularity={
+                        state?.granularity !== "day"
+                          ? state?.granularity
+                          : "minute"
+                      }
+                      hideTimeZone
+                      shouldForceLeadingZeros
+                      hourCycle={12}
+                      isDisabled={state?.dateValue?.day ? false : true}
+                      name={`calendarTime`}
+                    >
+                      <DateInput />
+                    </TimeField>
 
-                <Button
-                  onPress={() => {
-                    state.close();
-                  }}
-                  variant="outline"
-                >
-                  Close
-                </Button>
+                    <Button
+                      onPress={() => {
+                        state.close();
+                      }}
+                      variant="outline"
+                    >
+                      Close
+                    </Button>
+                  </Fragment>
+                )}
               </DatePickerContent>
             </Fragment>
           );

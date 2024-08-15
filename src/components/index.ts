@@ -10,3 +10,5 @@ export * from "@/components/DateField";
 export * from "@/components/DatePicker";
 export * from "@/components/Skeleton";
 export * from "@/components/Badge";
+export * from "@/components/Select";
+export * from "@/components/Chart";

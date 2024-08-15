@@ -4,9 +4,10 @@ import {
   redirect,
 } from "@tanstack/react-router";
 
-export * from "@/routes/private/home";
+export * from "@/routes/private/dashboard";
+export * from "@/routes/private/tasks";
 
-import { rootRoute, homeRoute } from "@/routes";
+import { rootRoute, dashboardRoute, tasksRoute } from "@/routes";
 
 const privateRootRoute = createRoute({
   getParentRoute: () => rootRoute,
@@ -24,6 +25,6 @@ const privateRootRoute = createRoute({
   },
 });
 
-const privateRoute = privateRootRoute.addChildren([homeRoute]);
+const privateRoute = privateRootRoute.addChildren([dashboardRoute, tasksRoute]);
 
 export { privateRootRoute, privateRoute };

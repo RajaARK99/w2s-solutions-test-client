@@ -29,12 +29,8 @@ const rootRoute = createRootRouteWithContext<AuthContext["auth"]>()({
         });
       } else
         throw redirect({
-          to: "/home",
+          to: "/dashboard",
           replace: false,
-          search: {
-            limit: 10,
-            page: 1,
-          },
         });
     }
   },

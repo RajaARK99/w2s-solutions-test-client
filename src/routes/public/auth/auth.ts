@@ -8,11 +8,12 @@ const authRootRoute = createRoute({
   beforeLoad: ({ context: { isAuthenticated } }) => {
     if (isAuthenticated) {
       throw redirect({
-        to: "/home",
+        to: "/dashboard",
       });
     }
   },
 });
 
 const authRoute = authRootRoute.addChildren([signInRoute, signUpRoute]);
+
 export { authRootRoute, authRoute };

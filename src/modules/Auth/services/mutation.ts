@@ -31,7 +31,7 @@ const useSignIn = ({
   >({
     mutationKey: ["sign-in"],
     mutationFn: (data) => {
-      return axiosInstance.post("/api/auth/sign-in", data);
+      return axiosInstance.post("auth/sign-in", data);
     },
     onError: ({ response, message }) => {
       toast.error(`SignIn failed. ${response?.data?.message ?? message ?? ""}`);
@@ -49,7 +49,7 @@ const useSignIn = ({
         });
         setTimeout(() => {
           navigate({
-            to: "/home",
+            to: "/dashboard",
             replace: false,
           });
         }, 10);
@@ -68,12 +68,17 @@ const useSignUp = ({ navigate }: { navigate: NavigateFn }) => {
   >({
     mutationKey: ["sign-up"],
     mutationFn: (data) => {
-      return axiosInstance.post("api/auth/sign", data);
+      return axiosInstance.post("auth/sign-up", data);
     },
     onError: ({ message, response }) => {
-      toast.error(`SignUp failed. ${response?.data?.message ?? message ?? ""}`);
+      toast.error(
+        `Sign up failed. ${response?.data?.message ?? message ?? ""}`
+      );
     },
-    onSuccess: () => {
+    onSuccess: ({ message }) => {
+      if (message) {
+        toast.success(message);
+      }
       navigate({
         to: "/sign-in",
       });
